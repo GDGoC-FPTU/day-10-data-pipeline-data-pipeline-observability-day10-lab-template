@@ -1,35 +1,41 @@
-# Experiment Report: Data Quality Impact on AI Agent
+# Báo cáo thí nghiệm: Ảnh hưởng của chất lượng dữ liệu đến AI Agent
 
-**Student ID:** AI20K-XXXX
-**Name:** (Dien ten cua ban)
-**Date:** (Dien ngay thuc hien)
-
----
-
-## 1. Ket qua thi nghiem
-
-Chay `agent_simulation.py` voi 2 bo du lieu va ghi lai ket qua:
-
-| Scenario | Agent Response | Accuracy (1-10) | Notes |
-|----------|----------------|-----------------|-------|
-| Clean Data (`processed_data.csv`) | (Ghi cau tra loi cua Agent) | | |
-| Garbage Data (`garbage_data.csv`) | (Ghi cau tra loi cua Agent) | | |
+**Student ID:** AI20K-115  
+**Name:** Lương Thanh Hậu  
+**Date:** 2026-04-15
 
 ---
 
-## 2. Phan tich & nhan xet
+## 1. Kết quả thực nghiệm
 
-### Tai sao Agent tra loi sai khi dung Garbage Data?
+Chạy `agent_simulation.py` với hai bộ dữ liệu và ghi nhận đầu ra:
 
-(Viet nhan xet cua ban o day — it nhat 50 tu)
+| Kịch bản | Đầu ra của Agent | Đánh giá độ chính xác (1-10) | Nhận xét |
+|----------|------------------|------------------------------|----------|
+| Clean Data (`processed_data.csv`) | Agent: Based on my data, the best choice is Laptop at $1200. | 9 | Dữ liệu đã được làm sạch nên giá trị hợp lệ, loại sản phẩm nhất quán, Agent chọn phương án hợp lý. |
+| Garbage Data (`garbage_data.csv`) | Agent: Based on my data, the best choice is Nuclear Reactor at $999999. | 2 | Dữ liệu nhiễu chứa outlier giá cực lớn và giá trị bất thường, làm Agent ưu tiên phương án phi thực tế. |
 
-(Hay phan tich cac van de nhu Duplicate IDs, wrong data types, outliers, null values
-va giai thich tai sao chung anh huong den ket qua cua Agent.)
+Kết quả kiểm thử tự động:
+
+- **Autograding: 9/9 passed (100%)**
 
 ---
 
-## 3. Ket luan
+## 2. Phân tích và nhận xét
 
-**Quality Data > Quality Prompt?** (Dong y hay khong? Giai thich ngan gon.)
+### Vì sao Agent trả lời sai với Garbage Data?
 
-(Viet ket luan cua ban o day)
+Trong bộ dữ liệu nhiễu, xuất hiện bản ghi có giá trị bất thường (`Nuclear Reactor` giá `999999`) nên Agent bị kéo theo tín hiệu sai.  
+Ngoài ra, dữ liệu bẩn thường đi kèm trùng lặp, sai kiểu dữ liệu hoặc thiếu trường thông tin, dẫn đến quá trình tổng hợp/so sánh không còn phản ánh đúng thực tế.  
+Vì Agent dựa trên dữ liệu đầu vào để suy luận, chỉ cần một số bản ghi nhiễu mạnh cũng đủ làm sai lệch quyết định cuối cùng.
+
+---
+
+## 3. Kết luận
+
+### Quan điểm: “Quality Data > Quality Prompt”
+
+**Đồng ý.**  
+Prompt tốt giúp mô hình diễn đạt rõ hơn, nhưng không thể bù đắp cho dữ liệu đầu vào kém chất lượng.  
+Thực nghiệm cho thấy cùng một logic Agent, dữ liệu sạch tạo ra kết quả hợp lý (`Laptop`), còn dữ liệu nhiễu dẫn tới kết luận sai lệch (`Nuclear Reactor`).  
+Do đó, đảm bảo chất lượng dữ liệu là bước nền tảng trước khi tối ưu prompt hoặc mô hình.

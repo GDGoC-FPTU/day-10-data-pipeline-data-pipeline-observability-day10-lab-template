@@ -1,46 +1,58 @@
 # Day 10 Lab: Data Pipeline & Data Observability
 
-**Student Email:** email@example.com
-**Name:** (Dien ten cua ban)
+**Student Email:** 26a1.hault@vinuni.edu.vn  
+**Name:** Lương Thanh Hậu
 
 ---
 
-## Mo ta
+## Mô tả
 
-(Mo ta ngan gon bai lab va nhung gi ban da lam)
+Bài lab này tập trung vào việc xây dựng pipeline ETL đơn giản và quan sát tác động của chất lượng dữ liệu đến quyết định của AI Agent.  
+Quy trình gồm: làm sạch dữ liệu đầu vào, xuất dữ liệu đã xử lý (`processed_data.csv`), và so sánh phản hồi của Agent giữa dữ liệu sạch và dữ liệu nhiễu.
 
 ---
 
-## Cach chay (How to Run)
+## Cách chạy
 
-### Prerequisites
+### 1) Cài đặt thư viện cần thiết
 ```bash
 pip install pandas
 ```
 
-### Chay ETL Pipeline
+### 2) Chạy ETL Pipeline
 ```bash
 python solution.py
 ```
 
-### Chay Agent Simulation (Stress Test)
+### 3) Chạy Agent Simulation (Clean vs Garbage Data)
 ```bash
-# Mo ta cach ban chay thi nghiem Clean vs Garbage data
+python agent_simulation.py
 ```
 
 ---
 
-## Cau truc thu muc
+## Cấu trúc thư mục
 
-```
-├── solution.py              # ETL Pipeline script
-├── processed_data.csv       # Output cua pipeline
-├── experiment_report.md     # Bao cao thi nghiem
-└── README.md                # File nay
+```text
+├── solution.py              # Script ETL Pipeline
+├── agent_simulation.py      # Mô phỏng Agent trên 2 bộ dữ liệu
+├── processed_data.csv       # Dữ liệu đã làm sạch
+├── garbage_data.csv         # Dữ liệu nhiễu để stress test
+├── experiment_report.md     # Báo cáo thí nghiệm
+└── README.md                # Tài liệu bài lab
 ```
 
 ---
 
-## Ket qua
+## Kết quả chính
 
-(Tom tat ket qua: bao nhieu records da xu ly, bao nhieu bi loai, v.v.)
+Kết quả chạy `agent_simulation.py`:
+
+- **Testing with CLEAN data:**  
+  `Agent: Based on my data, the best choice is Laptop at $1200.`
+- **Testing with GARBAGE data:**  
+  `Agent: Based on my data, the best choice is Nuclear Reactor at $999999.`
+
+Kết quả cho thấy dữ liệu sạch giúp Agent đưa ra lựa chọn hợp lý, trong khi dữ liệu nhiễu khiến Agent đưa ra quyết định sai lệch do outlier bất thường.
+
+Ngoài ra, phần kiểm thử tự động đạt: **Autograding 9/9 passed (100%)**.
